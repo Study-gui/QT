@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>对话框</string>
+    </property>
+    <addaction name="actiondia"/>
+    <addaction name="actiondiamov"/>
+    <addaction name="actioninfomation"/>
+    <addaction name="actionwarning"/>
+    <addaction name="actioncritical"/>
+    <addaction name="actionquestion"/>
+    <addaction name="actionFiledialog"/>
+   </widget>
+   <addaction name="menu"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actiondia"/>
+   <addaction name="separator"/>
+   <addaction name="actiondiamov"/>
+   <addaction name="separator"/>
+   <addaction name="actioninfomation"/>
+   <addaction name="actioncritical"/>
+   <addaction name="actionquestion"/>
+   <addaction name="actionwarning"/>
+   <addaction name="actionFiledialog"/>
+  </widget>
+  <action name="actiondia">
+   <property name="text">
+    <string>dia</string>
+   </property>
+  </action>
+  <action name="actiondiamov">
+   <property name="text">
+    <string>diamov</string>
+   </property>
+  </action>
+  <action name="actioninfomation">
+   <property name="text">
+    <string>infomation</string>
+   </property>
+  </action>
+  <action name="actionwarning">
+   <property name="text">
+    <string>warning</string>
+   </property>
+  </action>
+  <action name="actioncritical">
+   <property name="text">
+    <string>critical</string>
+   </property>
+  </action>
+  <action name="actionquestion">
+   <property name="text">
+    <string>question</string>
+   </property>
+  </action>
+  <action name="actionFiledialog">
+   <property name="text">
+    <string>Filedialog</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
