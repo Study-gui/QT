@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/"/>
+    <qresource prefix="/new/prefix1">
+        <file>C:/Users/2814554384/Pictures/timg.jpg</file>
+        <file>C:/Users/2814554384/Pictures/Saved Pictures/屏幕截图 2023-07-11 115202.png</file>
+    </qresource>
+</RCC>
