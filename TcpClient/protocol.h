@@ -5,12 +5,20 @@
 #include<string>
 #include<stdio.h>
 typedef unsigned int uint;
+#define REGIST_OK "regist ok"
+#define REGIST_FAILED "regist failed: name existed"
+
+#define LOGIN_OK "login ok"
+#define LOGIN_FAILED "login failed: name error or pwd error or relogin"
+
 //枚举，用户信息状态
 enum ENUM_MSG_TYPE
 {
     ENUM_MSG_TYPE_MIN=0,
     ENUM_MSG_TYPE_REGIST_REQUEST, //注册请求
     ENUM_MSG_TYPE_REGST_RESPOND,  //注册回复
+    ENUM_MSG_TYPE_LOGIN_REQUEST,  //登录请求
+    ENUM_MSG_TYPE_LOGIN_RESPOND,   //登录回复
     // ENUM_MSG_TYPE_REGIST_REQUEST,
     // ENUM_MSG_TYPE_REGST_RESPOND,
     // ENUM_MSG_TYPE_REGST_RESPOND,

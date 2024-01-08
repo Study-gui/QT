@@ -12,6 +12,9 @@ public:
     MyTcpServer();
 
     static MyTcpServer &getInstance();
+public slots:
+    //客户端下线槽函数
+    void deleteSocket(MyTcpSocket* mysocket);
 protected:
     void incomingConnection(qintptr socketDescriptor);
 private:

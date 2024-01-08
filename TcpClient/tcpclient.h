@@ -22,7 +22,8 @@ public:
 public slots:
     //显示TcpSocket连接信息的槽函数
     void showConnect();
-
+    //创建接收注册信息的函数
+    void recvMsg();
 private slots:
     //void on_send_pb_clicked();
 

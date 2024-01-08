@@ -43,3 +43,58 @@ OpeDB::~OpeDB()
 {
     m_db.close();
 }
+
+bool OpeDB::handleRegist(const char *name, const char *pwd)
+{
+    if(NULL==name||pwd==NULL)
+    {
+        //qDebug()<<"name|pwd failed";
+        return false;
+    }
+    QSqlQuery query;
+    QString data=QString("insert into usrInfo(name,pwd) values(\'%1\',\'%2\')").arg(name).arg(pwd);
+    //执行成功返回ture 失败返回false
+    //qDebug()<<data;
+    return query.exec(data);
+
+}
+
+bool OpeDB::handleLogin(const char *name, const char *pwd)
+{
+    if(NULL==name||pwd==NULL)
+    {
+        //qDebug()<<"name|pwd failed";
+        return false;
+    }
+    QSqlQuery query;
+    QString data=QString("select *from usrInfo where name=\'%1\' and pwd=\'%2\' and online=0").arg(name).arg(pwd);
+    query.exec(data);
+    //如果找到了next返回真
+    if(query.next())
+    {
+        //修改online值
+        data=QString("update usrInfo set online=1 where name=\'%1\' and pwd=\'%2\'").arg(name).arg(pwd);
+        //QSqlQuery query;
+        return query.exec(data);
+        //return true;
+
+    }
+    else{
+        return false;
+    }
+}
+
+void OpeDB::handleOffline(const char *name)
+{
+    if(NULL==name)
+    {
+        qDebug()<<"name failed";
+        return ;
+    }
+    QSqlQuery quecy;
+    QString data=QString("update usrInfo set online=0 where name=\'%1\'").arg(name);
+    quecy.exec(data);
+    qDebug()<<"handleoffline";
+
+}
+
