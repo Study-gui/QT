@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QTcpSocket>
 #include"protocol.h"
+#include<opewidget.h>
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class tcpclient;
@@ -18,6 +19,12 @@ public:
     //获取ip函数
     void loadConfig();
     tcpclient(QWidget *parent = nullptr);
+    //设置单例模式函数
+    static tcpclient &getInstance();
+    //获取m_Tcpsocket
+    QTcpSocket &gerSocket();
+
+
     ~tcpclient();
 public slots:
     //显示TcpSocket连接信息的槽函数

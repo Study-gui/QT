@@ -7,6 +7,7 @@
 #include<QStringList>
 #include<QMessageBox>
 #include<QHostAddress>
+
 void tcpclient::loadConfig()
 {
     QFile file(":/Client.config");
@@ -50,6 +51,18 @@ tcpclient::tcpclient(QWidget *parent)
     m_TcpSocket.connectToHost(QHostAddress(m_strIp),m_usPort);
 }
 
+tcpclient &tcpclient::getInstance()
+{
+    static tcpclient instance;
+    return instance;
+
+}
+
+QTcpSocket &tcpclient::gerSocket()
+{
+    return m_TcpSocket;
+}
+
 tcpclient::~tcpclient()
 {
     delete ui;
@@ -88,11 +101,19 @@ void tcpclient::recvMsg()
         if(0==strcmp(pdu->caData,LOGIN_OK))
         {
             QMessageBox::information(this,"登录",LOGIN_OK);
+            OpeWidget::getInstance().show();
+            this->hide();
         }
         else if(0==strcmp(pdu->caData,LOGIN_FAILED))
         {
             QMessageBox::critical(this,"登录",LOGIN_FAILED);
         }
+        break;
+    }
+    case ENUM_MSG_TYPE_ALL_ONLINE_RESPOND:
+    {
+        OpeWidget::getInstance().getFriend()->ShowAllOnline(pdu);
+        qDebug()<<(char*)(pdu->caMsg);
         break;
     }
     default:

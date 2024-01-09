@@ -19,7 +19,7 @@ void MyTcpServer::deleteSocket(MyTcpSocket *mysocket)
             (*it) -> deleteLater();
             *it=NULL;
             m_tcpSocketList.erase(it);
-            qDebug()<<"deletesocket";
+            //qDebug()<<"deletesocket";
             break;
         }
     }

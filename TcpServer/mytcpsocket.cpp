@@ -89,6 +89,30 @@ void MyTcpSocket::recvMsg()
         respdu=NULL;
         break;
     }
+    case ENUM_MSG_TYPE_ALL_ONLINE_REQUEST:
+    {
+        QStringList ret=OpeDB::getInstance().handleAllOnline();
+        for(int i=0;i<ret.size();i++)
+        {
+            qDebug()<<"====================";
+            qDebug()<<ret.at(i);
+            qDebug()<<"====================";
+        }
+        uint  uiMsgLen=ret.size()*32;
+        PDU* respdu=mkPDU(uiMsgLen);
+        respdu->uiMsgType=ENUM_MSG_TYPE_ALL_ONLINE_RESPOND;
+        for(uint i=0;i<ret.size();i++)
+        {
+            memcpy((char*)(respdu->caMsg)+i*32,ret.at(i).toStdString().c_str(),ret[i].size());
+
+        }
+        write((char*)respdu,respdu->uiPDULen);
+        free(pdu);
+        pdu=NULL;
+        free(respdu);
+        respdu=NULL;
+        break;
+    }
     default:
         break;
     }

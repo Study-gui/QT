@@ -1,6 +1,6 @@
 #ifndef OPEDB_H
 #define OPEDB_H
-
+#include<QStringList>
 #include <QObject>
 //连接数据库头文件
 #include<QSqlDatabase>
@@ -21,6 +21,8 @@ public:
     bool handleLogin(const char* name,const char* pwd);
     //退出函数
     void handleOffline(const char* name);
+    //查询在线用户函数
+    QStringList handleAllOnline();
 private:
     QSqlDatabase m_db; //连接数据库
 

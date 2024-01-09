@@ -94,7 +94,22 @@ void OpeDB::handleOffline(const char *name)
     QSqlQuery quecy;
     QString data=QString("update usrInfo set online=0 where name=\'%1\'").arg(name);
     quecy.exec(data);
-    qDebug()<<"handleoffline";
+    //qDebug()<<"handleoffline";
 
+}
+
+QStringList OpeDB::handleAllOnline()
+{
+    QSqlQuery quecy;
+    QString data=QString("select name from usrInfo where online=1");
+    quecy.exec(data);
+    QStringList result;
+    result.clear();
+    while(quecy.next())
+    {
+        result.append(quecy.value(0).toString());
+        qDebug()<<quecy.value(0).toString();
+    }
+    return result;
 }
 
