@@ -20,6 +20,9 @@ public:
     void ShowAllOnline(PDU* pdu);
     //创建返回Online对象函数
     Online *getOnline();
+
+    //查找用户姓名
+    QString m_strSearchUsrname;
 private:
     QTextEdit* m_pShowMsgTE;  //文本消息框
     QListWidget* m_pFriendListWidget;  //好友列表窗口
@@ -39,7 +42,8 @@ public slots:
 
     //触发显示好友信号的槽
     void ShowOnline();
-
+    //查找好友的槽函数
+    void SearchUsr();
 };
 
 #endif // FRIEND_H

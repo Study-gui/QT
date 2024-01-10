@@ -108,8 +108,110 @@ QStringList OpeDB::handleAllOnline()
     while(quecy.next())
     {
         result.append(quecy.value(0).toString());
-        qDebug()<<quecy.value(0).toString();
+        //qDebug()<<quecy.value(0).toString();
     }
     return result;
+}
+
+int OpeDB::handleSearchUsr(const char *name)
+{
+    if(NULL==name)
+    {
+        qDebug()<<"name failed";
+        return -2;
+    }
+    QSqlQuery quecy;
+    QString data=QString("select online from usrInfo where name=\'%1\'").arg(name);
+    quecy.exec(data);
+    //返回-1表示没有找到，1表示在线，0表示不在线
+    if(quecy.next())
+    {
+        if(quecy.value(0)==1)
+        {
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
+    else{
+        return -1;
+    }
+
+}
+
+int OpeDB::headleAddFriend(const char *perName, const char *UsrName)
+{
+    //0表示不在线，1表示在线，-1表示没有找到，3表示已经是好友了 -2表示出现错误
+    if(NULL==perName||NULL==UsrName)
+    {
+
+        qDebug()<<"headleAddFriend";
+        return -2;//错误
+    }
+    QSqlQuery quecy;
+    QString data=QString("select *from friend where (id=(select id from usrInfo where name=\'%1\') and friendId=(select id from usrInfo "
+                           "where name=\'%2\'))or (id=(select id from usrInfo where name=\'%3\') and friendId=(select id from usrInfo where name=\'%4\'))").arg(perName).arg(UsrName)
+                       .arg(UsrName).arg(perName);
+    qDebug()<<data;
+    quecy.exec(data);
+    if(quecy.next())
+    {
+        //表示已经是好友了
+        return 2;
+    }
+    else{
+        QSqlQuery quecy;
+        QString data=QString("select online from usrInfo where name=\'%1\'").arg(perName);
+        quecy.exec(data);
+        //返回-1表示没有找到，1表示在线，0表示不在线
+        if(quecy.next())
+        {
+            if(quecy.value(0)==1)
+            {
+                return 1;
+            }
+            else{
+                return 0;
+            }
+        }
+        else{
+            return -1;
+        }
+    }
+}
+
+void OpeDB::headleAddFriendAgree(const char *perName, const char *UsrName)
+{
+    if(NULL==perName||NULL==UsrName)
+    {
+        qDebug()<<"headleAddFriendAgree";
+        return ;
+    }
+    QSqlQuery quecy;
+    QString data=QString("select id from usrInfo where name=\'%1\'").arg(perName);
+    quecy.exec(data);
+    QVariant id;
+    QVariant friendId;
+    if(quecy.next())
+    {
+        id=quecy.value(0);
+    }
+    data=QString("select id from usrInfo where name=\'%1\'").arg(UsrName);
+    quecy.exec(data);
+    if(quecy.next())
+    {
+        friendId=quecy.value(0);
+    }
+    QString id1=id.toString();
+    QString id2=friendId.toString();
+    data=QString("insert into friend(id,friendId) values(\'%1\',\'%2\')").arg(id1).arg(id2);
+    qDebug()<<data;
+    quecy.exec(data);
+    if(quecy.next())
+    {
+        qDebug()<<"============================================";
+    }
+
 }
 

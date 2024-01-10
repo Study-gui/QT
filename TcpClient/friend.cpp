@@ -1,6 +1,7 @@
 #include "friend.h"
 #include<tcpclient.h>
 #include<protocol.h>
+#include<QInputDialog>
 Friend::Friend(QWidget *parent)
     : QWidget{parent}
 {
@@ -43,8 +44,11 @@ Friend::Friend(QWidget *parent)
      pMain->addWidget(m_pShowOnline);
      m_pShowOnline->hide();
 
-
+     //显示在线用户的型号与槽
      connect(m_pShowOnlineUsrPB,SIGNAL(clicked(bool)),this,SLOT(ShowOnline()));
+     //显示查找用户的信号与槽
+     connect(m_pSearchUsrPB,SIGNAL(clicked(bool)),this,SLOT(SearchUsr()));
+
 
      //进行输出
      setLayout(pMain);
@@ -73,7 +77,7 @@ void Friend::ShowOnline()
         m_pShowOnline->show();
         PDU *pdu=mkPDU(0);
         pdu->uiMsgType=ENUM_MSG_TYPE_ALL_ONLINE_REQUEST;
-        tcpclient::getInstance().gerSocket().write((char*)pdu,pdu->uiPDULen);
+        tcpclient::getInstance().getSocket().write((char*)pdu,pdu->uiPDULen);
         free(pdu);
         pdu=NULL;
 
@@ -81,6 +85,29 @@ void Friend::ShowOnline()
     else{
         m_pShowOnline->hide();
     }
+}
+
+void Friend::SearchUsr()
+{
+    QString name= QInputDialog::getText(this,"搜索","用户名");
+
+    if(!name.isEmpty())
+    {
+        //qDebug()<<name;
+        m_strSearchUsrname=name;
+        PDU* pdu=mkPDU(0);
+        pdu->uiMsgType=ENUM_MSG_TYPE_SEARCH_USR_REQUEST;
+        strcpy(pdu->caData,name.toStdString().c_str());
+        tcpclient::getInstance().getSocket().write((char*)pdu,pdu->uiPDULen);
+        free(pdu);
+        pdu=NULL;
+
+    }
+
+
+
+
+
 }
 
 

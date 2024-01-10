@@ -23,6 +23,15 @@ public:
     void handleOffline(const char* name);
     //查询在线用户函数
     QStringList handleAllOnline();
+
+    //查找用户函数
+    int handleSearchUsr(const char* name);
+
+    //添加好友函数
+    int headleAddFriend(const char* perName,const char *UsrName);
+
+    //好友同意的函数
+    void headleAddFriendAgree(const char* perName,const char *UsrName);
 private:
     QSqlDatabase m_db; //连接数据库
 

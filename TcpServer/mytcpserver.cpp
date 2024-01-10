@@ -8,6 +8,27 @@ MyTcpServer &MyTcpServer::getInstance()
     return instance;
 }
 
+void MyTcpServer::reSend(const char *name, PDU *pdu)
+{
+    if(NULL==name||NULL==pdu)
+    {
+        return ;
+        qDebug()<<"reSend";
+    }
+    QString strName=name;
+    for(int i=0;i<m_tcpSocketList.size();i++)
+    {
+
+        if(strName==m_tcpSocketList.at(i)->getName())
+        {
+
+            m_tcpSocketList.at(i)->write((char*)pdu,pdu->uiPDULen);
+            break;
+        }
+    }
+}
+
+
 void MyTcpServer::deleteSocket(MyTcpSocket *mysocket)
 {
     for(QList<MyTcpSocket*>::iterator it=m_tcpSocketList.begin();it!=m_tcpSocketList.end();it++)

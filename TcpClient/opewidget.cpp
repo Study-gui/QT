@@ -11,7 +11,7 @@ OpeWidget::OpeWidget(QWidget *parent)
     m_pFriend=new Friend;
     m_pBook=new Book;
 
-
+    //堆积窗口
      m_Psw=new QStackedWidget;
 
     m_Psw->addWidget(m_pFriend);

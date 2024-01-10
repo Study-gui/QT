@@ -22,8 +22,9 @@ public:
     //设置单例模式函数
     static tcpclient &getInstance();
     //获取m_Tcpsocket
-    QTcpSocket &gerSocket();
-
+    QTcpSocket &getSocket();
+    //自身的用户名
+    QString m_UsrName;
 
     ~tcpclient();
 public slots:
