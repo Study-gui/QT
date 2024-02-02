@@ -12,12 +12,22 @@ Online::Online(QWidget *parent)
 
 void Online::ShowUsr(PDU *pdu)
 {
+    //再次进来清楚上次的信息
+    for(int i=0;i<ui->online_lw->count();)
+    {
+        QListWidgetItem * pItem=ui->online_lw->item(i);
+        ui->online_lw->removeItemWidget(pItem);
+        delete pItem;
+        pItem=NULL;
+    }
+
     char tmp[32];
     for(int i=0;i<pdu->uiMsgLen/32;i++)
     {
         memcpy(tmp,(char*)(pdu->caMsg)+i*32,32);
-        ui->online_lw->addItem(QString::fromLocal8Bit(tmp));
-        qDebug()<<tmp;
+        //ui->online_lw->addItem(QString::fromLocal8Bit(tmp));
+        ui->online_lw->addItem(tmp);
+        //qDebug()<<tmp;
         //qDebug()<<"ShowUsr";
     }
 
@@ -27,7 +37,7 @@ Online::~Online()
 {
     delete ui;
 }
-
+//添加好友
 void Online::on_addfriend_pb_clicked()
 {
     QListWidgetItem * pItem=ui->online_lw->currentItem();

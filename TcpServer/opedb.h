@@ -32,6 +32,13 @@ public:
 
     //好友同意的函数
     void headleAddFriendAgree(const char* perName,const char *UsrName);
+
+    //刷新好友的函数
+    QStringList headleFlushFriend(const char* name);
+
+    //删除好友的函数
+    bool headleDelFriend(const char* Usrrname,const char* Pername);
+
 private:
     QSqlDatabase m_db; //连接数据库
 

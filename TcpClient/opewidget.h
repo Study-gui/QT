@@ -17,6 +17,7 @@ public:
     static OpeWidget &getInstance();
     //创建返回friend对象
     Friend *getFriend();
+    Book* getBook();
 signals:
 
 private:

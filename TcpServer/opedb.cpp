@@ -153,7 +153,7 @@ int OpeDB::headleAddFriend(const char *perName, const char *UsrName)
     QString data=QString("select *from friend where (id=(select id from usrInfo where name=\'%1\') and friendId=(select id from usrInfo "
                            "where name=\'%2\'))or (id=(select id from usrInfo where name=\'%3\') and friendId=(select id from usrInfo where name=\'%4\'))").arg(perName).arg(UsrName)
                        .arg(UsrName).arg(perName);
-    qDebug()<<data;
+    //qDebug()<<data;
     quecy.exec(data);
     if(quecy.next())
     {
@@ -206,12 +206,55 @@ void OpeDB::headleAddFriendAgree(const char *perName, const char *UsrName)
     QString id1=id.toString();
     QString id2=friendId.toString();
     data=QString("insert into friend(id,friendId) values(\'%1\',\'%2\')").arg(id1).arg(id2);
-    qDebug()<<data;
+    //qDebug()<<data;
     quecy.exec(data);
     if(quecy.next())
     {
         qDebug()<<"============================================";
     }
 
+}
+
+QStringList OpeDB::headleFlushFriend(const char *name)
+{
+    if(name==NULL)
+    {
+        //return ;
+        qDebug()<<"headleFlushFriend";
+
+    }
+    QStringList strFriendlist;
+    strFriendlist.clear();
+    QString data=QString("select name from usrInfo where online=1 and id in (select id from friend where friendId=(select id from usrInfo where name=\'%1\'))").arg(name);
+    QSqlQuery quecy;
+    quecy.exec(data);
+    while(quecy.next())
+    {
+        strFriendlist.append(quecy.value(0).toString());
+        //qDebug()<<quecy.value(0);
+    }
+    data=QString("select name from usrInfo where online=1 and id in (select friendId from friend where id=(select id from usrInfo where name=\'%1\'))").arg(name);
+    quecy.exec(data);
+    while(quecy.next())
+    {
+        strFriendlist.append(quecy.value(0).toString());
+        //qDebug()<<quecy.value(0);
+    }
+    return strFriendlist;
+}
+
+bool OpeDB::headleDelFriend(const char *Usrname, const char *Pername)
+{
+    if(Usrname==NULL&&Pername==NULL)
+    {
+        return false;
+    }
+    QSqlQuery quecy;
+    QString data=QString("delete from friend where id=(select id from usrInfo where name=\'%1\') and friendId=(select id from usrInfo where name=\'%2\')").arg(Usrname).arg(Pername);
+    quecy.exec(data);
+
+    data=QString("delete from friend where id=(select id from usrInfo where name=\'%1\') and friendId=(select id from usrInfo where name=\'%2\')").arg(Pername).arg(Usrname);
+    quecy.exec(data);
+    return true;
 }
 

@@ -1,5 +1,5 @@
 #include "tcpclient.h"
-
+#include"sharefile.h"
 #include <QApplication>
 // #include<friend.h>
 // #include<online.h>
@@ -13,7 +13,8 @@ int main(int argc, char *argv[])
     //单例模式
     tcpclient::getInstance().show();
 
-
+    // ShareFile w;
+    // w.show();
     // OpeWidget w;
     // w.show();
 

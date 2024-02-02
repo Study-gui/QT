@@ -5,6 +5,7 @@
 #include <QTcpSocket>
 #include"protocol.h"
 #include<opewidget.h>
+#include<QFile>
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class tcpclient;
@@ -26,6 +27,15 @@ public:
     //自身的用户名
     QString m_UsrName;
 
+    //获取当前路径函数
+    QString getDir();
+
+
+    QFile m_file;
+
+
+    //更新最新路径
+    void setCurPath(QString PathName);
     ~tcpclient();
 public slots:
     //显示TcpSocket连接信息的槽函数
@@ -49,5 +59,11 @@ private:
     Ui::tcpclient *ui;
     //连接服务器，和服务器进行数据交互
     QTcpSocket m_TcpSocket;
+
+    //存放当前路径
+    QString m_strCurPath;
+
+
+
 };
 #endif // TCPCLIENT_H

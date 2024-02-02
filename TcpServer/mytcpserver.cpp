@@ -31,12 +31,13 @@ void MyTcpServer::reSend(const char *name, PDU *pdu)
 
 void MyTcpServer::deleteSocket(MyTcpSocket *mysocket)
 {
+    //qDebug()<<"--------------------";
     for(QList<MyTcpSocket*>::iterator it=m_tcpSocketList.begin();it!=m_tcpSocketList.end();it++)
     {
         if(*it==mysocket)
         {
             //先将链表中的节点new出来的空间进行释放，再将这个链表的节点进行删除
-            // delete *it;
+            // delete *it;//
             (*it) -> deleteLater();
             *it=NULL;
             m_tcpSocketList.erase(it);
@@ -45,11 +46,11 @@ void MyTcpServer::deleteSocket(MyTcpSocket *mysocket)
         }
     }
     //qDebug()<<"delesocket";
-    for(int i=0;i<m_tcpSocketList.size();i++)
-    {
+    // for(int i=0;i<m_tcpSocketList.size();i++)
+    // {
 
-        qDebug()<<m_tcpSocketList.at(i)->getName();
-    }
+    //     qDebug()<<m_tcpSocketList.at(i)->getName();
+    // }
 }
 
 void MyTcpServer::incomingConnection(qintptr socketDescriptor)

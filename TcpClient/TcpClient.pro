@@ -14,7 +14,9 @@ SOURCES += \
     main.cpp \
     online.cpp \
     opewidget.cpp \
+    privatechat.cpp \
     protocol.cpp \
+    sharefile.cpp \
     tcpclient.cpp
 
 HEADERS += \
@@ -22,11 +24,14 @@ HEADERS += \
     friend.h \
     online.h \
     opewidget.h \
+    privatechat.h \
     protocol.h \
+    sharefile.h \
     tcpclient.h
 
 FORMS += \
     online.ui \
+    privatechat.ui \
     tcpclient.ui
 
 # Default rules for deployment.
@@ -35,4 +40,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
+    FileTpye.qrc \
     config.qrc
